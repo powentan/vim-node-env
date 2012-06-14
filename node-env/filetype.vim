@@ -13,3 +13,15 @@ fun! CheckNodejs()
 endf
 
 autocmd! BufRead,BufNewFile * call CheckNodejs()
+
+function! EnhCommentifyCallback(ft)
+    if a:ft == 'node'
+        let b:ECcommentOpen = '//'
+        let b:ECcommentClose = ''
+    elseif a:ft == 'jade'
+        let b:ECcommentOpen = '//'
+        let b:ECcommentClose = ''
+    endif
+endfunction
+let g:EnhCommentifyCallbackExists = 'Yes'
+
