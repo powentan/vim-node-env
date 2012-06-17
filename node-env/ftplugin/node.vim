@@ -10,16 +10,23 @@ fun g:GotoFile()
     let default_file = expand("<cfile>")
     let pattern = "require('" . default_file . "'"
     
-    let open_file = ""
+    let filename = ""
     if line =~ pattern
-        let open_file = default_file . ".js"
+        let filename = default_file . ".js"
     else
-        let open_file = default_file
+        let filename = default_file
     endif
 
-    let path = expand("%:p:h")
-    " open file
-    exec "edit " . path . "/" . open_file
+    " get all possible paths
+    let path_str = system("node -e 'console.log(require(\"module\").globalPaths)'")
+    let module_paths = eval(substitute(path_str, nr2char(10), '', 'g'))
+    " add current directory
+    call add(module_paths, expand("%:p:h"))
+
+    let abs_path = globpath(join(module_paths, ","), filename)
+    if abs_path != ""
+        exec "edit " . abs_path
+    endif
 endf
 
 " override default function
