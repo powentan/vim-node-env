@@ -8,7 +8,7 @@ let g:nodejs_utilities = 1
 fun g:GotoFile()
     let line = getline(".")
     let default_file = expand("<cfile>")
-    let pattern = "require('" . default_file . "'"
+    let pattern = "require(['\"]" . default_file . "['\"]"
     
     let filename = ""
     if line =~ pattern
