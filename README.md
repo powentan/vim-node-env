@@ -11,3 +11,4 @@ A comfortable settings for nodejs at Vim environment
     - Extend comment function
 * Smart autocompletion
 * Useful snipMate snippests
+

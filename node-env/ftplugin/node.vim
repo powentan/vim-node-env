@@ -23,11 +23,28 @@ fun g:GotoFile()
     " add current directory
     call add(module_paths, expand("%:p:h"))
 
+	" echo filename
     let abs_path = globpath(join(module_paths, ","), filename)
     if abs_path != ""
+        exec "edit " . abs_path
+	else
+		let abs_path = globpath(join(module_paths, ","), default_file . "/index.js")
+		" echo abs_path
         exec "edit " . abs_path
     endif
 endf
 
 " override default function
 map gf :call g:GotoFile()<CR>
+
+function! EnhCommentifyCallback(ft)
+    if a:ft == 'node'
+        let b:ECcommentOpen = '//'
+        let b:ECcommentClose = ''
+    elseif a:ft == 'jade'
+        let b:ECcommentOpen = '//'
+        let b:ECcommentClose = ''
+    endif
+endfunction
+let g:EnhCommentifyCallbackExists = 'Yes'
+
