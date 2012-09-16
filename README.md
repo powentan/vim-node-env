@@ -1,14 +1,16 @@
 vim-node-env
 ============
-
-A comfortable settings for nodejs at Vim environment
+Nicer nodejs working environment with Vim.
 
 ##Objective:
 * Filetype checking
 * Syntax highlight
+	- nodejs keywords
 * Node filetype ultilities
     - Move to "require" file
-    - Extend comment function
-* Smart autocompletion
+    - Integrate with EhancedCommentify Callback
 * Useful snipMate snippests
+	- Javascript snippests
+	- nodejs specific snippests
+* Smart autocompletion
 
