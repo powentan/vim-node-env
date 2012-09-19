@@ -1,3 +1,4 @@
+# log
 snippet log
 	console.log("${1:message...}");
 	${2}
@@ -5,3 +6,11 @@ snippet log
 snippet loga
 	console.log("${1:message...}", ${2:arguments});
 	${3}
+# http request option
+snippet option
+	var options = {
+		host: '${1:host}',
+		port: ${2:80},
+		path: '${3:/path}',
+		method: '${4:GET}'
+	};

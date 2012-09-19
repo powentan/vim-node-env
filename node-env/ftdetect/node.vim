@@ -14,4 +14,3 @@ fun! CheckNodejs()
 endf
 
 autocmd! BufRead,BufWrite,BufNewFile * call CheckNodejs()
-

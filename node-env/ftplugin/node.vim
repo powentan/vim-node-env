@@ -11,7 +11,7 @@ fun g:GotoFile()
     let pattern = "require(['\"]" . default_file . "['\"]"
     
     let filename = ""
-    if line =~ pattern
+    if line =~ pattern && fnamemodify(expand("<cfile>"), ":e") != "js"
         let filename = default_file . ".js"
     else
         let filename = default_file
