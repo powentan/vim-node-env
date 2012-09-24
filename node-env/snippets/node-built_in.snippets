@@ -1,16 +1,14 @@
 # log
 snippet log
-	console.log("${1:message...}");
-	${2}
+	console.log("${1:message...}");${2}
 # log with arguments
 snippet loga
-	console.log("${1:message...}", ${2:arguments});
-	${3}
+	console.log("${1:message...}", ${2:arguments});${3}
 # http request option
 snippet option
 	var options = {
-		host: '${1:host}',
+		host: ${1:host},
 		port: ${2:80},
-		path: '${3:/path}',
+		path: ${3:'/path'},
 		method: '${4:GET}'
-	};
+	};${5}
