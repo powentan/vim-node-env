@@ -1,6 +1,5 @@
-vim-node-env
-============
-Working environment for Node.js
+Vim Plugin for Working with Node.js 
+===================================
 
 Features
 --------
