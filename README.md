@@ -1,16 +1,22 @@
 vim-node-env
 ============
-Nicer nodejs working environment with Vim.
+Working environment for Node.js
 
-##Objective:
-* Filetype checking
-* Syntax highlight
-	- nodejs keywords
-* Node filetype ultilities
-    - Move to "require" file
-    - Integrate with EhancedCommentify Callback
-* Useful snipMate snippests
+Features
+--------
+1. Filetype checking
+2. Syntax highlight
+	- Node.js keywords(not complete)
+
+3. Utilities for tracing Node.js code
+    - Go to "require" files
+    - Integrate with 'EhancedCommentify' callback
+
+4. Useful snipMate snippests
 	- Javascript snippests
-	- nodejs specific snippests
-* Smart autocompletion
+	- Node.js specific snippests(not complete)
+
+TODO
+----
+- Smart autocompletion
 
