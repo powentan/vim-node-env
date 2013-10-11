@@ -1,3 +1,20 @@
+# #!
+snippet #!
+	#!/usr/bin/env node
+# log
+snippet log
+	console.log("${1:message...}");${2}
+# log with arguments
+snippet loga
+	console.log("${1:message...}", ${2:arguments});${3}
+# http request option
+snippet option
+	var options = {
+		host: ${1:host},
+		port: ${2:80},
+		path: ${3:'/path'},
+		method: '${4:GET}'
+	};${5}
 # Prototype
 snippet proto
 	${1:class_name}.prototype.${2:method_name} =
