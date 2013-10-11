@@ -10,6 +10,7 @@ fun! CheckNodejs()
 
     if set_flag == 1
         setlocal filetype=node
+		set makeprg=node\ %
     endif
 endf
 
