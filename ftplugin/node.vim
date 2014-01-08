@@ -22,11 +22,17 @@ fun g:GotoFile()
     let module_paths = eval(substitute(path_str, nr2char(10), '', 'g'))
     " add current directory
     call add(module_paths, expand("%:p:h"))
+	" echo module_paths
 
-	" echo filename
+    " echo filename
     let abs_path = globpath(join(module_paths, ","), filename)
+    " echo abs_path
     if abs_path != ""
-        exec "edit " . abs_path
+        if isdirectory(abs_path)
+            exec "edit " . abs_path . "/index.js"
+        else
+            exec "edit " . abs_path
+        endif
 	else
 		let abs_path = globpath(join(module_paths, ","), default_file . "/index.js")
 		" echo abs_path
