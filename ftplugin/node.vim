@@ -4,11 +4,21 @@ if exists("g:nodejs_utilities")
 endif
 let g:nodejs_utilities = 1
 
+" debug flag
+let s:debug = 0
+
+fun Debug(msg)
+    if !s:debug 
+        return
+    endif
+    echo a:msg
+endf
+
 
 fun g:GotoFile()
     let line = getline(".")
     let default_file = expand("<cfile>")
-    let pattern = "require(['\"]" . default_file . "['\"]"
+    let pattern = "require(\\s*['\"]" . default_file . "['\"]\\s*"
     
     let filename = ""
     if line =~ pattern && fnamemodify(expand("<cfile>"), ":e") != "js"
@@ -18,15 +28,16 @@ fun g:GotoFile()
     endif
 
     " get all possible paths
-    let path_str = system("node -e 'console.log(require(\"module\").globalPaths)'")
+    " let path_str = system("node -e 'console.log(require(\"module\").globalPaths)'")
+    let path_str = system("node -e 'console.log(module.paths)'")
     let module_paths = eval(substitute(path_str, nr2char(10), '', 'g'))
     " add current directory
     call add(module_paths, expand("%:p:h"))
-	" echo module_paths
+    call Debug(module_paths)
 
-    " echo filename
+    call Debug("filename = " . filename)
     let abs_path = globpath(join(module_paths, ","), filename)
-    " echo abs_path
+    " echo "abs_path = " . abs_path
     if abs_path != ""
         if isdirectory(abs_path)
             exec "edit " . abs_path . "/index.js"
@@ -35,7 +46,10 @@ fun g:GotoFile()
         endif
 	else
 		let abs_path = globpath(join(module_paths, ","), default_file . "/index.js")
-		" echo abs_path
+        if abs_path == ""
+            let abs_path = globpath(join(module_paths, ","), default_file . "/" . default_file . ".js")
+        endif
+        call Debug(abs_path)
         exec "edit " . abs_path
     endif
 endf
