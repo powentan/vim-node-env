@@ -29,8 +29,13 @@ fun g:GotoFile()
 
     " get all possible paths
     " let path_str = system("node -e 'console.log(require(\"module\").globalPaths)'")
-    let path_str = system("node -e 'console.log(module.paths)'")
-    let module_paths = eval(substitute(path_str, nr2char(10), '', 'g'))
+	if has('win32')
+		" FIXME: workaround for windows
+		let module_paths = ['./node_modules']
+	else
+		let path_str = system("node -e 'console.log(module.paths)'")
+		let module_paths = eval(substitute(path_str, nr2char(10), '', 'g'))
+	endif
     " add current directory
     call add(module_paths, expand("%:p:h"))
     call Debug(module_paths)
