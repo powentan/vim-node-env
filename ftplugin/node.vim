@@ -36,13 +36,17 @@ fun g:GotoFile()
 		let path_str = system("node -e 'console.log(module.paths)'")
 		let module_paths = eval(substitute(path_str, nr2char(10), '', 'g'))
 	endif
-    " add current directory
-    call add(module_paths, expand("%:p:h"))
+    " add current directory which follows symbloic link
+    let symLink = fnamemodify(resolve(expand('%')), ':p:h')
+    call add(module_paths, symLink)
     call Debug(module_paths)
 
     call Debug("filename = " . filename)
+    let filename = resolve(expand(filename))
+    call Debug("expand filename = " . filename)
     let abs_path = globpath(join(module_paths, ","), filename)
-    " echo "abs_path = " . abs_path
+    call Debug("abs_path = " . abs_path)
+
     if abs_path != ""
         if isdirectory(abs_path)
             exec "edit " . abs_path . "/index.js"
