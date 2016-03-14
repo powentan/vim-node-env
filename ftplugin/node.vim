@@ -27,18 +27,19 @@ fun g:GotoFile()
         let filename = default_file
     endif
 
-    " get all possible paths
-    " let path_str = system("node -e 'console.log(require(\"module\").globalPaths)'")
-	if has('win32')
-		" FIXME: workaround for windows
-		let module_paths = ['./node_modules']
-	else
-		let path_str = system("node -e 'console.log(module.paths)'")
-		let module_paths = eval(substitute(path_str, nr2char(10), '', 'g'))
-	endif
-    " add current directory which follows symbloic link
-    let symLink = fnamemodify(resolve(expand('%')), ':p:h')
-    call add(module_paths, symLink)
+    " switch current directory to the path of open file(follows symbolic link)
+    let open_file_dir = fnamemodify(resolve(expand('%')), ':p:h')
+    call Debug('file path = ' . open_file_dir)
+    exec 'lcd ' . open_file_dir
+
+    if has('win32')
+      " FIXME: workaround for windows
+      let module_paths = ['./node_modules']
+    else
+      let path_str = system("node -e 'console.log(module.paths)'")
+      let module_paths = eval(substitute(path_str, nr2char(10), '', 'g'))
+    endif
+
     call Debug(module_paths)
 
     call Debug("filename = " . filename)
@@ -53,12 +54,13 @@ fun g:GotoFile()
         else
             exec "edit " . abs_path
         endif
-	else
-		let abs_path = globpath(join(module_paths, ","), default_file . "/index.js")
+    else
+        let abs_path = globpath(join(module_paths, ","), default_file . "/index.js")
         if abs_path == ""
             let abs_path = globpath(join(module_paths, ","), default_file . "/" . default_file . ".js")
         endif
-        call Debug(abs_path)
+        let abs_path = resolve(abs_path)
+        call Debug("abs_path = " . abs_path)
         exec "edit " . abs_path
     endif
 endf
@@ -76,4 +78,3 @@ function! EnhCommentifyCallback(ft)
     endif
 endfunction
 let g:EnhCommentifyCallbackExists = 'Yes'
-
