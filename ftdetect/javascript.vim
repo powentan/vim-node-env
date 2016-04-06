@@ -9,8 +9,9 @@ fun! CheckNodejs()
     endif
 
     if set_flag == 1
-        setlocal filetype=node
-		set makeprg=node\ %
+        setlocal filetype=javascript
+        set makeprg=node\ %
+        let g:node_env = "node"
     endif
 endf
 
